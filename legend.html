@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bibliophile Quiz Arena</title>
+
+<style>
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #12002f, #3b0a68, #16002e);
+  color: white;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 850px;
+  margin: auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.header h1 {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.header p {
+  color: #d8c8ff;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* WHATSAPP CHANNEL */
+
+.channel-btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 12px 20px;
+  background: #25D366;
+  color: white;
+  text-decoration: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.channel-btn:hover {
+  background: #20bd5a;
+  transform: translateY(-2px);
+}
+
+.quiz-box {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+}
+
+.progress {
+  text-align: center;
+  color: #d8c8ff;
+  margin-bottom: 20px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.question {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
+.question h3 {
+  font-size: 18px;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.option {
+  width: 100%;
+  display: block;
+  text-align: left;
+  background: rgba(255,255,255,0.08);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 13px 15px;
+  margin: 9px 0;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+.option:hover:not(:disabled) {
+  background: rgba(255,255,255,0.17);
+  transform: translateY(-1px);
+}
+
+.option:disabled {
+  cursor: default;
+}
+
+.selected {
+  background: #6f35c9 !important;
+  border-color: #b98cff !important;
+}
+
+.correct {
+  background: #168a45 !important;
+  border-color: #31d878 !important;
+}
+
+.wrong {
+  background: #a5263a !important;
+  border-color: #ff6075 !important;
+}
+
+.explanation {
+  display: none;
+  margin-top: 12px;
+  padding: 13px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.07);
+  border-left: 4px solid #b98cff;
+  color: #eeeeee;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.explanation strong {
+  color: #d9b8ff;
+}
+
+.submit-btn {
+  width: 100%;
+  border: none;
+  padding: 16px;
+  margin-top: 10px;
+  border-radius: 14px;
+  background: #8f4cff;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.submit-btn:hover {
+  background: #a66aff;
+  transform: translateY(-2px);
+}
+
+.submit-btn:disabled {
+  background: #555;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.result {
+  display: none;
+  text-align: center;
+  margin-top: 25px;
+  padding: 25px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.08);
+}
+
+.result h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.score {
+  font-size: 45px;
+  font-weight: bold;
+  color: #d9b8ff;
+  margin: 10px 0;
+}
+
+.percentage {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.message {
+  color: #ddd;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.btn {
+  border: none;
+  padding: 13px 25px;
+  border-radius: 12px;
+  background: #8f4cff;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #a66aff;
+}
+
+/* COPYRIGHT */
+
+.footer {
+  text-align: center;
+  margin-top: 25px;
+  padding: 20px 10px;
+  color: #cfc1ed;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.footer span {
+  color: #a66aff;
+  font-weight: bold;
+}
+
+@media (max-width: 600px) {
+
+  body {
+    padding: 12px;
+  }
+
+  .header h1 {
+    font-size: 25px;
+  }
+
+  .quiz-box {
+    padding: 15px;
+  }
+
+  .question h3 {
+    font-size: 16px;
+  }
+
+  .option {
+    font-size: 14px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+
+    <h1>📚 BIBLIOPHILE QUIZ ARENA</h1>
+
+    <p>
+      Think smart. Choose wisely. Test your knowledge.
+    </p>
+
+    <a
+      href="https://whatsapp.com/channel/0029VbDC1O23QxS7neDhqu0y"
+      target="_blank"
+      class="channel-btn">
+      📢 Join Our WhatsApp Channel
+    </a>
+
+  </div>
+
+
+  <div class="quiz-box">
+
+    <div class="progress" id="progress">
+      Answered: 0 / 20
+    </div>
+
+    <div id="quiz"></div>
+
+    <button
+      class="submit-btn"
+      id="submitBtn"
+      onclick="submitQuiz()">
+
+      SUBMIT QUIZ
+
+    </button>
+
+
+    <div class="result" id="result">
+
+      <h2>🎉 Quiz Completed!</h2>
+
+      <div class="score" id="score">
+        0 / 20
+      </div>
+
+      <div class="percentage" id="percentage">
+        0%
+      </div>
+
+      <p class="message" id="message"></p>
+
+      <button
+        class="btn"
+        onclick="restartQuiz()">
+
+        TRY AGAIN
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<footer class="footer">
+
+  © 2026 BIBLIOPHILE QUIZ ARENA. All Rights Reserved.
+
+  <br>
+
+  <span>Powered by LEGEND TECH</span>
+
+</footer>
+
+
+<script>
+
+const questions = [
+
+  {
+    q: "1. If 3x + 5 = 20, what is the value of x?",
+    options: [
+      "7",
+      "3",
+      "5",
+      "9"
+    ],
+    answer: 2,
+    explanation:
+      "Subtract 5 from both sides: 3x = 15. Then divide by 3. Therefore, x = 5."
+  },
+
+  {
+    q: "2. A body travels 150 m in 10 seconds. What is its average speed?",
+    options: [
+      "20 m/s",
+      "15 m/s",
+      "25 m/s",
+      "10 m/s"
+    ],
+    answer: 1,
+    explanation:
+      "Speed = Distance ÷ Time. Therefore, 150 ÷ 10 = 15 m/s."
+  },
+
+  {
+    q: "3. Which organelle is known as the powerhouse of the cell?",
+    options: [
+      "Ribosome",
+      "Chloroplast",
+      "Nucleus",
+      "Mitochondrion"
+    ],
+    answer: 3,
+    explanation:
+      "The mitochondrion produces most of the usable energy of the cell in the form of ATP."
+  },
+
+  {
+    q: "4. What is the chemical formula of water?",
+    options: [
+      "H₂O",
+      "CO₂",
+      "H₂",
+      "O₂"
+    ],
+    answer: 0,
+    explanation:
+      "A water molecule contains two hydrogen atoms and one oxygen atom, giving H₂O."
+  },
+
+  {
+    q: "5. Which sentence is grammatically correct?",
+    options: [
+      "Neither of the boys were ready.",
+      "Neither of the boys have been ready.",
+      "Neither of the boys is ready.",
+      "Neither of the boys are ready."
+    ],
+    answer: 2,
+    explanation:
+      "Neither is treated as singular in this construction, so the correct verb is 'is'."
+  },
+
+  {
+    q: "6. What is the square root of 225?",
+    options: [
+      "18",
+      "15",
+      "12",
+      "13"
+    ],
+    answer: 1,
+    explanation:
+      "15 × 15 = 225. Therefore, √225 = 15."
+  },
+
+  {
+    q: "7. Which force attracts objects towards the Earth?",
+    options: [
+      "Electrostatic force",
+      "Gravitational force",
+      "Friction",
+      "Magnetic force"
+    ],
+    answer: 1,
+    explanation:
+      "Gravity is the attractive force between masses and pulls objects toward Earth."
+  },
+
+  {
+    q: "8. Which gas is required by green plants for photosynthesis?",
+    options: [
+      "Hydrogen",
+      "Oxygen",
+      "Carbon dioxide",
+      "Nitrogen"
+    ],
+    answer: 2,
+    explanation:
+      "Green plants use carbon dioxide, water and light energy to produce glucose during photosynthesis."
+  },
+
+  {
+    q: "9. What is the pH of a neutral solution at 25°C?",
+    options: [
+      "14",
+      "7",
+      "0",
+      "5"
+    ],
+    answer: 1,
+    explanation:
+      "At 25°C, a neutral solution has a pH of 7."
+  },
+
+  {
+    q: "10. A triangle has angles 50° and 60°. What is the third angle?",
+    options: [
+      "80°",
+      "90°",
+      "70°",
+      "60°"
+    ],
+    answer: 2,
+    explanation:
+      "The angles in a triangle add up to 180°. So, 180° − 50° − 60° = 70°."
+  },
+
+  {
+    q: "11. Which blood cells help defend the body against infections?",
+    options: [
+      "Plasma",
+      "Platelets",
+      "White blood cells",
+      "Red blood cells"
+    ],
+    answer: 2,
+    explanation:
+      "White blood cells help protect the body by fighting pathogens and other foreign substances."
+  },
+
+  {
+    q: "12. What is the SI unit of force?",
+    options: [
+      "Pascal",
+      "Newton",
+      "Joule",
+      "Watt"
+    ],
+    answer: 1,
+    explanation:
+      "The SI unit of force is the newton (N)."
+  },
+
+  {
+    q: "13. Which of the following is an alkali metal?",
+    options: [
+      "Chlorine",
+      "Calcium",
+      "Sodium",
+      "Aluminium"
+    ],
+    answer: 2,
+    explanation:
+      "Sodium is in Group 1 of the periodic table, making it an alkali metal."
+  },
+
+  {
+    q: "14. What is 20% of 250?",
+    options: [
+      "50",
+      "25",
+      "75",
+      "40"
+    ],
+    answer: 0,
+    explanation:
+      "20% = 20/100. Therefore, 20/100 × 250 = 50."
+  },
+
+  {
+    q: "15. Which part of a plant absorbs most water and mineral salts?",
+    options: [
+      "Flower",
+      "Root hairs",
+      "Stem",
+      "Leaf"
+    ],
+    answer: 1,
+    explanation:
+      "Root hairs provide a large surface area for absorbing water and mineral salts from the soil."
+  },
+
+  {
+    q: "16. Which law states that every action has an equal and opposite reaction?",
+    options: [
+      "Newton's Third Law",
+      "Law of Conservation of Energy",
+      "Newton's First Law",
+      "Newton's Second Law"
+    ],
+    answer: 0,
+    explanation:
+      "Newton's Third Law states that forces occur in equal and opposite pairs."
+  },
+
+  {
+    q: "17. What type of bond is formed by the sharing of electrons?",
+    options: [
+      "Metallic bond",
+      "Coordinate bond",
+      "Ionic bond",
+      "Covalent bond"
+    ],
+    answer: 3,
+    explanation:
+      "A covalent bond is formed when atoms share one or more pairs of electrons."
+  },
+
+  {
+    q: "18. Choose the word closest in meaning to 'ABUNDANT'.",
+    options: [
+      "Weak",
+      "Scarce",
+      "Plentiful",
+      "Tiny"
+    ],
+    answer: 2,
+    explanation:
+      "Abundant means existing in large quantities. Therefore, 'plentiful' is the closest meaning."
+  },
+
+  {
+    q: "19. If 2x - 6 = 14, what is x?",
+    options: [
+      "10",
+      "8",
+      "12",
+      "9"
+    ],
+    answer: 0,
+    explanation:
+      "Add 6 to both sides: 2x = 20. Divide by 2: x = 10."
+  },
+
+  {
+    q: "20. Which process changes water vapour into liquid water?",
+    options: [
+      "Freezing",
+      "Condensation",
+      "Evaporation",
+      "Sublimation"
+    ],
+    answer: 1,
+    explanation:
+      "Condensation occurs when water vapour loses heat and changes from gas into liquid."
+  }
+
+];
+
+
+const quiz =
+  document.getElementById("quiz");
+
+const result =
+  document.getElementById("result");
+
+const scoreDisplay =
+  document.getElementById("score");
+
+const percentageDisplay =
+  document.getElementById("percentage");
+
+const message =
+  document.getElementById("message");
+
+const progress =
+  document.getElementById("progress");
+
+const submitBtn =
+  document.getElementById("submitBtn");
+
+
+let selectedAnswers =
+  new Array(20).fill(null);
+
+let submitted = false;
+
+
+function loadQuiz() {
+
+  quiz.innerHTML = "";
+
+  result.style.display = "none";
+
+  submitBtn.disabled = false;
+
+  submitBtn.textContent = "SUBMIT QUIZ";
+
+  submitted = false;
+
+  selectedAnswers =
+    new Array(20).fill(null);
+
+  progress.textContent =
+    "Answered: 0 / 20";
+
+
+  questions.forEach(
+    (question, questionIndex) => {
+
+      const questionBox =
+        document.createElement("div");
+
+      questionBox.className = "question";
+
+
+      const title =
+        document.createElement("h3");
+
+      title.textContent = question.q;
+
+      questionBox.appendChild(title);
+
+
+      question.options.forEach(
+        (option, optionIndex) => {
+
+          const button =
+            document.createElement("button");
+
+          button.className = "option";
+
+          button.textContent =
+            String.fromCharCode(65 + optionIndex)
+            + ". "
+            + option;
+
+
+          button.onclick = function() {
+
+            if (submitted) {
+              return;
+            }
+
+            if (
+              selectedAnswers[questionIndex]
+              !== null
+            ) {
+              return;
+            }
+
+
+            button.classList.add("selected");
+
+
+            selectedAnswers[questionIndex] =
+              optionIndex;
+
+
+            const allOptions =
+              questionBox.querySelectorAll(
+                ".option"
+              );
+
+
+            allOptions.forEach(
+              btn => {
+                btn.disabled = true;
+              }
+            );
+
+
+            const answeredCount =
+              selectedAnswers.filter(
+                answer => answer !== null
+              ).length;
+
+
+            progress.textContent =
+              "Answered: "
+              + answeredCount
+              + " / 20";
+
+          };
+
+
+          questionBox.appendChild(button);
+
+        }
+      );
+
+
+      const explanation =
+        document.createElement("div");
+
+      explanation.className = "explanation";
+
+      explanation.innerHTML =
+        "<strong>Explanation:</strong> "
+        + question.explanation;
+
+
+      questionBox.appendChild(explanation);
+
+      quiz.appendChild(questionBox);
+
+    }
+  );
+
+}
+
+
+function submitQuiz() {
+
+  if (submitted) {
+    return;
+  }
+
+
+  const unanswered =
+    selectedAnswers.filter(
+      answer => answer === null
+    ).length;
+
+
+  if (unanswered > 0) {
+
+    alert(
+      "Please answer all 20 questions before submitting."
+    );
+
+    return;
+  }
+
+
+  submitted = true;
+
+  let score = 0;
+
+
+  questions.forEach(
+    (question, index) => {
+
+      if (
+        selectedAnswers[index]
+        === question.answer
+      ) {
+        score++;
+      }
+
+    }
+  );
+
+
+  const percentage =
+    Math.round((score / 20) * 100);
+
+
+  scoreDisplay.textContent =
+    score + " / 20";
+
+  percentageDisplay.textContent =
+    percentage + "%";
+
+
+  if (percentage >= 90) {
+
+    message.textContent =
+      "Excellent! Outstanding performance! 🔥";
+
+  }
+
+  else if (percentage >= 70) {
+
+    message.textContent =
+      "Great job! Your knowledge is impressive! 💪";
+
+  }
+
+  else if (percentage >= 50) {
+
+    message.textContent =
+      "Good attempt! Keep learning and improving. 📚";
+
+  }
+
+  else {
+
+    message.textContent =
+      "Keep practising. You can do better next time! 💯";
+
+  }
+
+
+  questions.forEach(
+    (question, questionIndex) => {
+
+      const questionBox =
+        quiz.children[questionIndex];
+
+
+      const buttons =
+        questionBox.querySelectorAll(
+          ".option"
+        );
+
+
+      const explanation =
+        questionBox.querySelector(
+          ".explanation"
+        );
+
+
+      buttons.forEach(
+        (button, optionIndex) => {
+
+          button.disabled = true;
+
+
+          /* SHOW CORRECT ANSWER */
+
+          if (
+            optionIndex === question.answer
+          ) {
+
+            button.classList.add("correct");
+
+          }
+
+
+          /* SHOW WRONG USER ANSWER */
+
+          if (
+            selectedAnswers[questionIndex]
+            === optionIndex
+            &&
+            optionIndex !== question.answer
+          ) {
+
+            button.classList.add("wrong");
+
+          }
+
+        }
+      );
+
+
+      /* SHOW EXPLANATION FOR MISSED QUESTIONS */
+
+      if (
+        selectedAnswers[questionIndex]
+        !== question.answer
+      ) {
+
+        explanation.style.display = "block";
+
+      }
+
+    }
+  );
+
+
+  submitBtn.disabled = true;
+
+  submitBtn.textContent =
+    "QUIZ SUBMITTED ✓";
+
+
+  result.style.display = "block";
+
+
+  result.scrollIntoView({
+    behavior: "smooth"
+  });
+
+}
+
+
+function restartQuiz() {
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+  loadQuiz();
+
+}
+
+
+loadQuiz();
+
+</script>
+
+</body>
+</html>
